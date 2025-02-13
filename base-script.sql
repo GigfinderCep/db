@@ -1,4 +1,6 @@
 IF OBJECT_ID('dbo.ChatRooms', 'U') IS NOT NULL DROP TABLE dbo.ChatRooms;
+IF OBJECT_ID('dbo.Aplications', 'U') IS NOT NULL DROP TABLE dbo.Aplications;
+IF OBJECT_ID('dbo.Ratings', 'U') IS NOT NULL DROP TABLE dbo.Ratings;
 IF OBJECT_ID('dbo.Events', 'U') IS NOT NULL DROP TABLE dbo.Events;
 IF OBJECT_ID('dbo.Musicans', 'U') IS NOT NULL DROP TABLE dbo.Musicans;
 IF OBJECT_ID('dbo.Locals', 'U') IS NOT NULL DROP TABLE dbo.Locals;
@@ -27,7 +29,7 @@ CREATE TABLE dbo.Users (
 CREATE TABLE dbo.Files (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	mimetype VARCHAR(10) NOT NULL,
-	path VARCHAR(25)
+	path VARCHAR(25) NOT NULL
 );
 
 CREATE TABLE dbo.Attachments (
@@ -101,9 +103,33 @@ CREATE TABLE dbo.Events (
 	date_end SMALLDATETIME NOT NULL,
 	opened_offer BIT DEFAULT 0, -- BOOL
 	price INT NOT NULL,
-	description VARCHAR(255),
+	description NVARCHAR(255),
 	canceled BIT DEFAULT 0,
 	cancel_msg NVARCHAR(255) DEFAULT '',
+	genre_id INT NULL,
+	CONSTRAINT FK_EVENT_GENRE FOREIGN KEY (genre_id) REFERENCES dbo.Genres(id),
 	CONSTRAINT FK_EVENT_MUSICAN FOREIGN KEY (musican_id) REFERENCES dbo.Musicans(id),
 	CONSTRAINT FK_EVENT_LOCAL FOREIGN KEY (local_id) REFERENCES dbo.Locals(id)
 );
+
+CREATE TABLE dbo.Aplications (
+	user_id INT,
+	event_id INT,
+	description NVARCHAR(255),
+	status VARCHAR(10),
+	CONSTRAINT CHECK_APLICATIONS_STATUS CHECK (status IN('pendent','rejected','accepted')),
+	CONSTRAINT FK_EVENT_APLICATIONS FOREIGN KEY (event_id) REFERENCES dbo.Events(id),
+	CONSTRAINT FK_USER_APLICATIONS FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
+	CONSTRAINT PK_APLICATIONS PRIMARY KEY (user_id, event_id)
+);
+
+CREATE TABLE dbo.Ratings (
+	user_id INT,
+	event_id INT,
+	avg_rating TINYINT NOT NULL DEFAULT 0,
+	CONSTRAINT FK_EVENT_RATINGS FOREIGN KEY (event_id) REFERENCES dbo.Events(id),
+	CONSTRAINT FK_USER_VALORATIONS FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
+	CONSTRAINT PK_RATINGS PRIMARY KEY (user_id, event_id),
+	CONSTRAINT CHECK_RATING CHECK (avg_rating BETWEEN 0 AND 5)
+);
+
