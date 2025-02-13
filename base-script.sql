@@ -1,0 +1,109 @@
+IF OBJECT_ID('dbo.ChatRooms', 'U') IS NOT NULL DROP TABLE dbo.ChatRooms;
+IF OBJECT_ID('dbo.Events', 'U') IS NOT NULL DROP TABLE dbo.Events;
+IF OBJECT_ID('dbo.Musicans', 'U') IS NOT NULL DROP TABLE dbo.Musicans;
+IF OBJECT_ID('dbo.Locals', 'U') IS NOT NULL DROP TABLE dbo.Locals;
+IF OBJECT_ID('dbo.Messages', 'U') IS NOT NULL DROP TABLE dbo.Messages;
+IF OBJECT_ID('dbo.Attachments', 'U') IS NOT NULL DROP TABLE dbo.Attachments;
+IF OBJECT_ID('dbo.Files', 'U') IS NOT NULL DROP TABLE dbo.Files;
+IF OBJECT_ID('dbo.UserGenres', 'U') IS NOT NULL DROP TABLE dbo.UserGenres;
+IF OBJECT_ID('dbo.Genres', 'U') IS NOT NULL DROP TABLE dbo.Genres;
+
+IF OBJECT_ID('dbo.Languages', 'U') IS NOT NULL DROP TABLE dbo.Languages;
+IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL DROP TABLE dbo.Users;
+
+
+CREATE TABLE dbo.Users (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	name NVARCHAR(100) NOT NULL,
+	description NVARCHAR(500) NOT NULL,
+	email NVARCHAR(100) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	type VARCHAR(5) NOT NULL,
+	avg_rating TINYINT NOT NULL DEFAULT 0,
+	CONSTRAINT CHECK_USER_TYPE CHECK (type IN ('local','music')),
+	CONSTRAINT CHECK_AVGRATING CHECK (avg_rating BETWEEN 0 AND 5)
+);
+
+CREATE TABLE dbo.Files (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	mimetype VARCHAR(10) NOT NULL,
+	path VARCHAR(25)
+);
+
+CREATE TABLE dbo.Attachments (
+	id INT PRIMARY KEY,
+	file_identifier INT NOT NULL,
+	description VARCHAR,
+	CONSTRAINT FK_ATTACHMENTS_FILE FOREIGN KEY (file_identifier) REFERENCES dbo.Files(id)
+);
+
+CREATE TABLE dbo.Languages (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	lang NVARCHAR(20) NOT NULL,
+);
+
+CREATE TABLE dbo.Musicans (
+	id INT PRIMARY KEY NOT NULL,
+	size TINYINT NOT NULL,
+	price INT NOT NULL,
+	lang INT NOT NULL,
+	CONSTRAINT FK_MUSICAN_LANG FOREIGN KEY (lang) REFERENCES dbo.Languages(id),
+	CONSTRAINT FK_ID_MUSICAN FOREIGN KEY (id) REFERENCES dbo.Users(id) 
+);
+
+CREATE TABLE dbo.Locals (
+	id INT PRIMARY KEY,
+	capacity iNT NOT NULL,
+	x_coordination FLOAT NOT NULL, 
+	y_coordination FLOAT NOT NULL,
+	CONSTRAINT FK_ID_LOCAL FOREIGN KEY (id) REFERENCES dbo.Users(id) 
+);
+
+CREATE TABLE dbo.ChatRooms (
+	id INT IDENTITY(1,1) PRIMARY KEY, 
+	user_id1 INT NOT NULL,
+	user_id2 INT NOT NULL,
+	CONSTRAINT FK_CHAT_USER_1 FOREIGN KEY (user_id1) REFERENCES dbo.Users(id),
+	CONSTRAINT FK_CHAT_USER_2 FOREIGN KEY (user_id2) REFERENCES dbo.Users(id),
+	CONSTRAINT UQ_CHAT_USERS UNIQUE (user_id1, user_id2)
+);
+
+CREATE TABLE dbo.Messages (
+	id INT IDENTITY(1,1) PRIMARY KEY, 
+	sender INT NOT NULL,
+	content NVARCHAR(255),
+	file_identifier INT NULL,
+	date SMALLDATETIME NOT NULL, -- SMALLDATETIME most eficient minuts storage YY/MM/DD HH:MI:00
+	type VARCHAR(7) NOT NULL,
+	CONSTRAINT CHECK_MESSAGE_TYPE CHECK(type IN ('message','audio')),
+	CONSTRAINT FK_MSG_USER FOREIGN KEY (sender) REFERENCES dbo.Users(id),
+	CONSTRAINT FK_MESSAGES_FILE FOREIGN KEY (file_identifier) REFERENCES dbo.Files(id)
+);
+
+CREATE TABLE dbo.Genres (
+	id INT IDENTITY(1,1) PRIMARY KEY, 
+	name VARCHAR(20)
+);
+
+CREATE TABLE dbo.UserGenres (
+	user_id INT,
+	genre_id INT,
+	CONSTRAINT FK_GENRE_USER FOREIGN KEY (genre_id) REFERENCES dbo.Genres(id),
+	CONSTRAINT FK_USER_GENRE FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
+	CONSTRAINT PK_USERGENRES PRIMARY KEY(user_id, genre_id)
+)
+
+CREATE TABLE dbo.Events (
+	id INT IDENTITY(1,1) PRIMARY KEY, 
+	musican_id iNT,
+	local_id INT NOT NULL,
+	date_start SMALLDATETIME NOT NULL,
+	date_end SMALLDATETIME NOT NULL,
+	opened_offer BIT DEFAULT 0, -- BOOL
+	price INT NOT NULL,
+	description VARCHAR(255),
+	canceled BIT DEFAULT 0,
+	cancel_msg NVARCHAR(255) DEFAULT '',
+	CONSTRAINT FK_EVENT_MUSICAN FOREIGN KEY (musican_id) REFERENCES dbo.Musicans(id),
+	CONSTRAINT FK_EVENT_LOCAL FOREIGN KEY (local_id) REFERENCES dbo.Locals(id)
+);
