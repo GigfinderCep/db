@@ -3,7 +3,7 @@ IF OBJECT_ID('dbo.ChatRooms', 'U') IS NOT NULL DROP TABLE dbo.ChatRooms;
 IF OBJECT_ID('dbo.Aplications', 'U') IS NOT NULL DROP TABLE dbo.Aplications;
 IF OBJECT_ID('dbo.Ratings', 'U') IS NOT NULL DROP TABLE dbo.Ratings;
 IF OBJECT_ID('dbo.Events', 'U') IS NOT NULL DROP TABLE dbo.Events;
-IF OBJECT_ID('dbo.Musicans', 'U') IS NOT NULL DROP TABLE dbo.Musicans;
+IF OBJECT_ID('dbo.Musicians', 'U') IS NOT NULL DROP TABLE dbo.Musicians;
 IF OBJECT_ID('dbo.Locals', 'U') IS NOT NULL DROP TABLE dbo.Locals;
 IF OBJECT_ID('dbo.Attachments', 'U') IS NOT NULL DROP TABLE dbo.Attachments;
 IF OBJECT_ID('dbo.Files', 'U') IS NOT NULL DROP TABLE dbo.Files;
@@ -46,13 +46,13 @@ CREATE TABLE dbo.Languages (
 	lang NVARCHAR(20) NOT NULL,
 );
 
-CREATE TABLE dbo.Musicans (
+CREATE TABLE dbo.Musicians (
 	id INT PRIMARY KEY NOT NULL,
 	size TINYINT NOT NULL,
 	price INT NOT NULL,
 	songs_lang INT NOT NULL,
-	CONSTRAINT FK_MUSICAN_LANG FOREIGN KEY (songs_lang) REFERENCES dbo.Languages(id),
-	CONSTRAINT FK_MUSICAN_ID FOREIGN KEY (id) REFERENCES dbo.Users(id) 
+	CONSTRAINT FK_musician_LANG FOREIGN KEY (songs_lang) REFERENCES dbo.Languages(id),
+	CONSTRAINT FK_musician_ID FOREIGN KEY (id) REFERENCES dbo.Users(id) 
 );
 
 CREATE TABLE dbo.Locals (
@@ -74,14 +74,14 @@ CREATE TABLE dbo.ChatRooms (
 
 CREATE TABLE dbo.Messages (
 	id INT IDENTITY(1,1) PRIMARY KEY, 
-	id_chat INT,
+	chat_id INT,
 	sender INT NOT NULL,
 	content NVARCHAR(255),
 	file_identifier INT NULL,
 	date SMALLDATETIME NOT NULL, -- SMALLDATETIME most eficient minuts storage YY/MM/DD HH:MI:00
 	type VARCHAR(10) NOT NULL,
 	CONSTRAINT CHECK_MESSAGE_TYPE CHECK(type IN ('message','audio')),
-	CONSTRAINT FK_MSG_CHAT FOREIGN KEY (id_chat) REFERENCES dbo.ChatRooms(id),
+	CONSTRAINT FK_MSG_CHAT FOREIGN KEY (chat_id) REFERENCES dbo.ChatRooms(id),
 	CONSTRAINT FK_MSG_USER FOREIGN KEY (sender) REFERENCES dbo.Users(id),
 	CONSTRAINT FK_MESSAGES_FILE FOREIGN KEY (file_identifier) REFERENCES dbo.Files(id)
 );
@@ -101,7 +101,7 @@ CREATE TABLE dbo.UserGenres (
 
 CREATE TABLE dbo.Events (
 	id INT IDENTITY(1,1) PRIMARY KEY, 
-	musican_id iNT,
+	musician_id iNT,
 	local_id INT NOT NULL,
 	date_start SMALLDATETIME NOT NULL,
 	date_end SMALLDATETIME NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE dbo.Events (
 	CONSTRAINT CHECK_DATE_START_FUTURE CHECK (date_start > GETDATE()),
     CONSTRAINT CHECK_DATE_END_FUTURE CHECK (date_end > GETDATE()),
 	CONSTRAINT FK_EVENT_GENRE FOREIGN KEY (genre_id) REFERENCES dbo.Genres(id),
-	CONSTRAINT FK_EVENT_MUSICAN FOREIGN KEY (musican_id) REFERENCES dbo.Musicans(id),
+	CONSTRAINT FK_EVENT_musician FOREIGN KEY (musician_id) REFERENCES dbo.Musicians(id),
 	CONSTRAINT FK_EVENT_LOCAL FOREIGN KEY (local_id) REFERENCES dbo.Locals(id)
 );
 
