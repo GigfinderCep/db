@@ -22,6 +22,8 @@ CREATE TABLE dbo.Users (
 	password VARCHAR(100) NOT NULL,
 	type VARCHAR(5) NOT NULL,
 	avg_rating TINYINT NOT NULL DEFAULT 0,
+	profile_image_identifier VARCHAR(100) DEFAULT '',
+	confirm_code VARCHAR(4) DEFAULT '',
 	CONSTRAINT CHECK_USER_TYPE CHECK (type IN ('local','music')),
 	CONSTRAINT CHECK_AVGRATING CHECK (avg_rating BETWEEN 0 AND 5)
 );
@@ -138,4 +140,3 @@ CREATE TABLE dbo.Ratings (
 	CONSTRAINT PK_RATINGS PRIMARY KEY (user_id, event_id),
 	CONSTRAINT CHECK_RATING CHECK (avg_rating BETWEEN 0 AND 5)
 );
-
