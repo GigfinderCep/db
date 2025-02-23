@@ -1,3 +1,5 @@
+use gigfinder;
+
 IF OBJECT_ID('dbo.Messages', 'U') IS NOT NULL DROP TABLE dbo.Messages;
 IF OBJECT_ID('dbo.ChatRooms', 'U') IS NOT NULL DROP TABLE dbo.ChatRooms;
 IF OBJECT_ID('dbo.Aplications', 'U') IS NOT NULL DROP TABLE dbo.Aplications;
@@ -157,8 +159,8 @@ CREATE TABLE dbo.Incidences (
 	description NVARCHAR(500) DEFAULT '',
 	admin_note NVARCHAR(500) DEFAULT '',
 	status varchar(10),
-	user_id INT,
-	admin_id INT,
+	user_id INT NOT NULL,
+	admin_id INT DEFAULT NULL,
 	CONSTRAINT CHECK_INCIDENCE_STATUS CHECK (status IN ('pendent','ignores','fixed')),
 	CONSTRAINT FK_USER_INCIDENCES FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
 	CONSTRAINT FK_ADMIN_INCIDENCES FOREIGN KEY (admin_id) REFERENCES dbo.UsersDesktop(id)
