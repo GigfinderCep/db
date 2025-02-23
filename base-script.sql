@@ -158,7 +158,7 @@ CREATE TABLE dbo.Incidences (
 	id INT IDENTITY(1,1) PRIMARY KEY, 
 	description NVARCHAR(500) DEFAULT '',
 	admin_note NVARCHAR(500) DEFAULT '',
-	status varchar(10),
+	status varchar(10) DEFAULT 'pendent' NOT NULL,
 	user_id INT NOT NULL,
 	admin_id INT DEFAULT NULL,
 	CONSTRAINT CHECK_INCIDENCE_STATUS CHECK (status IN ('pendent','ignores','fixed')),
