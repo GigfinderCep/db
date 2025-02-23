@@ -9,6 +9,8 @@ IF OBJECT_ID('dbo.Attachments', 'U') IS NOT NULL DROP TABLE dbo.Attachments;
 IF OBJECT_ID('dbo.Files', 'U') IS NOT NULL DROP TABLE dbo.Files;
 IF OBJECT_ID('dbo.UserGenres', 'U') IS NOT NULL DROP TABLE dbo.UserGenres;
 IF OBJECT_ID('dbo.Genres', 'U') IS NOT NULL DROP TABLE dbo.Genres;
+IF OBJECT_ID('dbo.Incidences', 'U') IS NOT NULL DROP TABLE dbo.Incidences;
+IF OBJECT_ID('dbo.UsersDesktop', 'U') IS NOT NULL DROP TABLE dbo.UsersDesktop;
 
 IF OBJECT_ID('dbo.Languages', 'U') IS NOT NULL DROP TABLE dbo.Languages;
 IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL DROP TABLE dbo.Users;
@@ -23,7 +25,6 @@ CREATE TABLE dbo.Users (
 	type VARCHAR(5) NOT NULL,
 	avg_rating TINYINT NOT NULL DEFAULT 0,
 	profile_image_identifier VARCHAR(100) DEFAULT '',
-	confirm_code VARCHAR(4) DEFAULT '',
 	CONSTRAINT CHECK_USER_TYPE CHECK (type IN ('local','music')),
 	CONSTRAINT CHECK_AVGRATING CHECK (avg_rating BETWEEN 0 AND 5)
 );
@@ -139,4 +140,26 @@ CREATE TABLE dbo.Ratings (
 	CONSTRAINT FK_USER_VALORATIONS FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
 	CONSTRAINT PK_RATINGS PRIMARY KEY (user_id, event_id),
 	CONSTRAINT CHECK_RATING CHECK (avg_rating BETWEEN 0 AND 5)
+);
+
+CREATE TABLE dbo.UsersDesktop (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	name NVARCHAR(100) NOT NULL,
+	surname NVARCHAR(100) NOT NULL,
+	email NVARCHAR(100) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	type VARCHAR(5) NOT NULL,
+);
+
+
+CREATE TABLE dbo.Incidences (
+	id INT IDENTITY(1,1) PRIMARY KEY, 
+	description NVARCHAR(500) DEFAULT '',
+	admin_note NVARCHAR(500) DEFAULT '',
+	status varchar(10),
+	user_id INT,
+	admin_id INT,
+	CONSTRAINT CHECK_INCIDENCE_STATUS CHECK (status IN ('pendent','ignores','fixed')),
+	CONSTRAINT FK_USER_INCIDENCES FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
+	CONSTRAINT FK_ADMIN_INCIDENCES FOREIGN KEY (admin_id) REFERENCES dbo.UsersDesktop(id)
 );
