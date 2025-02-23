@@ -110,7 +110,7 @@ CREATE TABLE dbo.Events (
 	local_id INT NOT NULL,
 	date_start SMALLDATETIME NOT NULL,
 	date_end SMALLDATETIME NOT NULL,
-	opened_offer BIT DEFAULT 0, -- BOOL
+	opened_offer BIT DEFAULT 1, -- BOOL
 	price INT NOT NULL,
 	description NVARCHAR(255),
 	canceled BIT DEFAULT 0,
