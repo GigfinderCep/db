@@ -137,6 +137,7 @@ CREATE TABLE dbo.Aplications (
 CREATE TABLE dbo.Ratings (
 	user_id INT,
 	event_id INT,
+	content NVARCHAR(255),
 	avg_rating TINYINT NOT NULL DEFAULT 0,
 	CONSTRAINT FK_EVENT_RATINGS FOREIGN KEY (event_id) REFERENCES dbo.Events(id),
 	CONSTRAINT FK_USER_VALORATIONS FOREIGN KEY (user_id) REFERENCES dbo.Users(id),
