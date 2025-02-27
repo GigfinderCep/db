@@ -41,7 +41,7 @@ CREATE TABLE dbo.Attachments (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	user_id INT NOT NULL,
 	file_identifier INT NOT NULL,
-	description VARCHAR,
+	description VARCHAR(255) NULL,
 	CONSTRAINT FK_ATTACHMENTS_FILE FOREIGN KEY (file_identifier) REFERENCES dbo.Files(id),
 	CONSTRAINT FK_USER_ATTACHMENTS FOREIGN KEY (user_id) REFERENCES dbo.Users(id)
 );
