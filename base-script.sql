@@ -34,7 +34,7 @@ CREATE TABLE dbo.Users (
 CREATE TABLE dbo.Files (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	mimetype VARCHAR(10) NOT NULL,
-	path VARCHAR(25) NOT NULL
+	path VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE dbo.Attachments (
