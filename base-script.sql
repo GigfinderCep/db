@@ -70,6 +70,7 @@ CREATE TABLE dbo.Locals (
 
 CREATE TABLE dbo.ChatRooms (
 	id INT IDENTITY(1,1) PRIMARY KEY, 
+	encriptionKey NVARCHAR(44) NOT NULL,
 	user_id1 INT NOT NULL,
 	user_id2 INT NOT NULL,
 	CONSTRAINT FK_CHAT_USER_1 FOREIGN KEY (user_id1) REFERENCES dbo.Users(id),
