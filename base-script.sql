@@ -86,7 +86,7 @@ CREATE TABLE dbo.Messages (
 	file_identifier INT NULL,
 	date SMALLDATETIME NOT NULL, -- SMALLDATETIME most eficient minuts storage YY/MM/DD HH:MI:00
 	type VARCHAR(10) NOT NULL,
-	CONSTRAINT CHECK_MESSAGE_TYPE CHECK(type IN ('message','audio')),
+	CONSTRAINT CHECK_MESSAGE_TYPE CHECK(type IN ('message','audio', 'media')),
 	CONSTRAINT FK_MSG_CHAT FOREIGN KEY (chat_id) REFERENCES dbo.ChatRooms(id),
 	CONSTRAINT FK_MSG_USER FOREIGN KEY (sender) REFERENCES dbo.Users(id),
 	CONSTRAINT FK_MESSAGES_FILE FOREIGN KEY (file_identifier) REFERENCES dbo.Files(id)
