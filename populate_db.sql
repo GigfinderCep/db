@@ -1,12 +1,12 @@
 v-- Insert Users (3 Musicians, 3 Locals), password is pass
 INSERT INTO dbo.Users (name, description, email, password, type, avg_rating)
 VALUES 
-('John Doe', 'A talented guitarist and singer.', 'johndoe@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6MTc3NDM3NTM5MCwiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.3ASIUHfHk-Mhy0YRm8SfRn4u4KzstrcS1Rv9R2KQ2ic', 'music', 4),
-('Alice Smith', 'An amazing violinist with classical roots.', 'alicesmith@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6MTc3NDM3NTM5MCwiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.3ASIUHfHk-Mhy0YRm8SfRn4u4KzstrcS1Rv9R2KQ2ic', 'music', 5),
-('Mike Johnson', 'A drummer specializing in jazz and rock.', 'mikejohnson@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6MTc3NDM3NTM5MCwiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.3ASIUHfHk-Mhy0YRm8SfRn4u4KzstrcS1Rv9R2KQ2ic', 'music', 3),
-('The Grand Hall', 'A spacious venue for large events.', 'grandhall@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6MTc3NDM3NTM5MCwiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.3ASIUHfHk-Mhy0YRm8SfRn4u4KzstrcS1Rv9R2KQ2ic', 'local', 5),
-('Downtown Pub', 'A cozy spot for live performances.', 'downtownpub@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6MTc3NDM3NTM5MCwiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.3ASIUHfHk-Mhy0YRm8SfRn4u4KzstrcS1Rv9R2KQ2ic', 'local', 4),
-('Skyline Club', 'A high-energy nightclub with live DJs.', 'skylineclub@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6MTc3NDM3NTM5MCwiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.3ASIUHfHk-Mhy0YRm8SfRn4u4KzstrcS1Rv9R2KQ2ic', 'local', 3);
+('John Doe', 'A talented guitarist and singer.', 'johndoe@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14', 'music', 4),
+('Alice Smith', 'An amazing violinist with classical roots.', 'alicesmith@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14', 'music', 5),
+('Mike Johnson', 'A drummer specializing in jazz and rock.', 'mikejohnson@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14', 'music', 3),
+('The Grand Hall', 'A spacious venue for large events.', 'grandhall@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14', 'local', 5),
+('Downtown Pub', 'A cozy spot for live performances.', 'downtownpub@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14', 'local', 4),
+('Skyline Club', 'A high-energy nightclub with live DJs.', 'skylineclub@example.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSIsImV4cCI6MTc3NDQ2NjQ1MywiaXNzIjoiZ2lnZmluZGVyIiwiYXVkIjoiZ2lnZmluZGVyIn0.muyVjtpWrzKWbIwLvHq2eMomPIkuFTxJ43T36WQ_U14', 'local', 3);
 
 -- Insert Locals
 INSERT INTO dbo.Locals (id, capacity, x_coordination, y_coordination)
