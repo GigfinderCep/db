@@ -27,6 +27,7 @@ CREATE TABLE dbo.Users (
 	type VARCHAR(5) NOT NULL,
 	avg_rating TINYINT NOT NULL DEFAULT 0,
 	profile_image_identifier VARCHAR(100) DEFAULT '',
+	active BIT NOT NULL DEFAULT 1,
 	CONSTRAINT CHECK_USER_TYPE CHECK (type IN ('local','music')),
 	CONSTRAINT CHECK_AVGRATING CHECK (avg_rating BETWEEN 0 AND 5)
 );
