@@ -154,6 +154,7 @@ CREATE TABLE dbo.UsersDesktop (
 	email NVARCHAR(100) NOT NULL,
 	password VARCHAR(100) NOT NULL,
 	type VARCHAR(5) NOT NULL,
+	active BIT NOT NULL DEFAULT 1,
 );
 
 
